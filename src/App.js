@@ -1,12 +1,12 @@
 
 import './App.css';
-import Form from './Components/Form';
+import Todo from './TODO/Todo';
 
 function App() {
   return (
     <div className="App">
-      <h1>Form, Events - ( I )</h1>
-      <Form/>
+      <h1>TODO APP</h1>
+      <Todo/>
     </div>
   );
 }
