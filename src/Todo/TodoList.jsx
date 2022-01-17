@@ -1,4 +1,3 @@
-
 import style from "./Todo.module.css";
 
 function TodoList({ data }) {
@@ -6,7 +5,7 @@ function TodoList({ data }) {
       <ul className={style.list}>
         {data.map((item) => (
           <li key={item.id} className={style.listData}>
-           {item.id}. {item.title} - {item.description} - {item.status ? "DONE" : "PENDING"}
+            {item.title} - {item.description} - {item.status ?"PENDING" : "DONE"}
           </li>
         ))}
       </ul>
