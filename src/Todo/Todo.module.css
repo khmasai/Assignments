@@ -1,0 +1,71 @@
+
+.todo{
+    width: 65%;
+    border: 1px solid red;
+    background-color: gray;
+    text-align: center;
+    margin-top: 60px;
+    padding-bottom: 150px;
+}
+
+.todo h1{
+    color: rgb(82, 70, 3);
+}
+
+.todoItem{
+    margin-top: 40px;
+}
+
+.todo h3{
+    font-size: 20px;
+    color: silver;
+    padding-bottom: 20px;
+}
+
+.todoItem input{
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+.todoItem button{
+    padding: 12px 15px;
+    font-size: 25px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.list{
+    width: 350px;
+    height: 50px;
+    border-radius: 15px;
+    background-color: white;
+    margin: auto;
+    margin-top: 15px;
+    padding: 15px;
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.div{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(206,206,206);
+}
+
+.toggle{
+    background-color: rgb(135,255,197);
+    border: 1px solid rgb(135,255,197);
+    border-radius: 50%;
+    padding: 10px 10px;
+}
+
+.toggle:hover{
+    background-color: orange;
+}
