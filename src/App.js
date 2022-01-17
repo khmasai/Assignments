@@ -1,43 +1,113 @@
 
 import './App.css';
-import Card from './Cards/Card';
+import data from "./data.json";
+import RestaurantDetails from './Components/RestaurantDetails/RestaurantDetails';
+import { useState } from 'react';
+import Pagination from './Components/Pagination';
 
 function App() {
+  const [state, setState]=useState({
+      filterRating: 0,
+  })
+  const [payment, setPayment]=useState({
+     paymentMethod: "All",
+  })
+  const [cost, setCost]=useState({
+      sortMethod: null
+  })
+  const [page,setPage]= useState(1);
+
+  const handleRating=(rating)=>{
+    setState({filterRating: rating});
+  }
+  const handlePayment = (payment)=>{
+    setPayment({paymentMethod: payment})
+  }
+  
+  const handleSort=(order)=>{
+    setCost({sortMethod: order})
+  }
+
+  const changePageTo = (num) => {
+    if (num <= 1) {
+      setPage(1);
+      return;
+    }
+    setPage(num);
+  };
+  var perPage = 5;
+  // lowerBound
+  // upperBound
+  // const filteredResults = data.filter(
+  //   (_, i) => i >= (page - 1) * perPage && i < page * perPage
+  // );
+
   return (
     <div className="App">
-       <div className="card1">
-          <div className="logo-box">
-            <p>28/10/2020</p>
-            <div className="logo"></div>
-          </div>
-          <div className="case">Case Study</div>
-          <h1>Amazon Gift</h1>
-          <h1>Pay</h1>
-          <div className="logo-box">
-            <h5>Desktop - Mobile</h5>
-            <div className="logo1"><i class="fas fa-arrow-right"></i></div>
-          </div>
-       </div>
-       <div className=" card1">
-          <Card 
-           date={"28/10/2020"}
-           url={"https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_icon.png"}
-           title1={"Case Study"}
-           title2={"Amazon Gift"}
-           title3={"Pay"}
-           title4={"Desktop - Mobile"}
-          />
-       </div>
-       <div className=" card2">
-          <Card 
-           date={"17 Sep 2020"}
-           url={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTafiv8fzCUb1DDDUkI3ByNNzArXKc0AOHQMSGwnYllK1zjesKa0CaqPZ8jMrl1Iyga-OA&usqp=CAU"}
-           title1={"Case Study"}
-           title2={"Apple Gift"}
-           title3={"Payment"}
-           title4={"MacOS - Mobile"}
-          />
-       </div>
+      <h1>RESTAURANT WEBSITE</h1>
+      <div style={{color: "gray",fontSize: "20px", fontWeight: "500"}}>
+        Ratings:
+        {
+          [4,3,2,1,0].map(rating=>{
+            return <button key={rating} onClick={()=> handleRating(rating)}>
+              {rating===0 ? "All" : rating}
+            </button>
+          })
+        }
+      </div>
+      <div style={{color: "gray",fontSize: "20px", fontWeight: "500"}}>
+        Payment Methods:
+        {
+          ["All", "Cash", "Card"].map(method=>{
+            return <button key={method} onClick={()=>handlePayment(method)}>{method}</button>
+          })
+        }
+      </div>
+      <div style={{color: "gray",fontSize: "20px", fontWeight: "500"}}>
+        Cost:
+        {
+           ["Low To High","High To Low","unsorted"].map(order=> {
+             return <button key={order} onClick={() =>handleSort(order)}>
+                {order}
+              </button>
+            })
+        }
+      </div>
+      <div>
+        <Pagination
+          currentPage={page}
+          onClickCallback={(page) => changePageTo(page)}
+          total={Math.floor(data.length/5)}
+        />
+      </div>
+      {
+        data
+        .filter(({rating,payment_methods}) => {
+          const { cash, card } = payment_methods;
+          let paymentCondition = true;
+          if (payment.paymentMethod === "Cash") {
+            paymentCondition = cash ? true : false;
+          } else if (payment.paymentMethod === "Card") {
+            paymentCondition = card ? true : false;
+          }
+          return rating >= state.filterRating && paymentCondition;
+        })
+        .filter(
+          (_, i) => i >= (page - 1) * perPage && i < page * perPage
+        )
+        .sort((a, b) =>{
+          if (cost.sortMethod === "Low To High") {
+            return a.costForTwo - b.costForTwo;
+          }
+          if (cost.sortMethod === "High To Low") {
+            return b.costForTwo - a.costForTwo;
+          }
+          return 0;
+        })
+        .map((item) =>{
+          return <RestaurantDetails data={item} key={item.id}/>
+        })
+      }
     </div>
   );
 }
