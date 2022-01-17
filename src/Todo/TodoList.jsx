@@ -12,20 +12,19 @@ const TodoList = ({id,status,title,handleDelete,handleToggle})=>{
         );
     }
 
-    if(status===true)
+    if(status==="Completed")
     {
         var Style = {
-            background: "rgb(127,123,255)"
+            background: "blue"
         }
     }
 
     return <div className={style.list}>
-        <span className={style.title}>
-            {title} 
-            <button onClick={()=>handleToggle(id)} className={style.toggle} style={Style}>
-                <div className={style.div}></div>
-            </button>
-        </span>
+        <span className={style.id}>{listNumber-1}.</span>
+        <span className={style.title}>{title}</span>
+        <span className={style.status} style={Style}>{status}</span>
+        <button onClick={()=>handleDelete(id)} className={style.delete}>X</button>
+        <button onClick={()=>handleToggle(id)} className={style.toggle}>Toggle</button>
     </div>
  }
  

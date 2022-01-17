@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import style from "./Todo.module.css";
-import TodoInput from "./TodoItem";
+import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
 export default function Todo(){
@@ -10,7 +10,7 @@ export default function Todo(){
         {
             id: 1,
             title: "DEFAULT",
-            status: false,
+            status: "Incompleted",
         }
     ])
     
@@ -18,20 +18,20 @@ export default function Todo(){
         const payload={
             id: todos.length+1,
             title: title,
-            status: false
+            status: "Incompleted"
         }
         setTodos([...todos,payload]);
     }
 
     // delete
-    // const handleDelete = (id)=>{
-    //     setTodos(todos.filter((item)=>item.id !==id));
-    // }
+    const handleDelete = (id)=>{
+        setTodos(todos.filter((item)=>item.id !==id));
+    }
 
     // * toggle
     const handleToggle=(id)=>{
         const updatedTodos = todos.map((item)=>
-        item.id===id ? {...item, status: !item.status}: item
+        item.id===id ? {...item, status: (item.status==="Completed")?("Incompleted"):"Completed"}: item
         );
         setTodos(updatedTodos);
     }
@@ -39,21 +39,21 @@ export default function Todo(){
     return (
         <div className={style.todo}>
             <h1>TODO LIST</h1>
-            <h3>Add Your Tasks Below</h3>
+            <TodoInput onTaskCreate={handleTaskCreate}/>
             {
-                todos.map((todo)=>{
+                 todos.map((todo)=>{
                     return (
                 <TodoList
                 key={todo.id} 
                 id={todo.id}
                 title={todo.title} 
                 status={todo.status}
+                handleDelete={handleDelete}
                 handleToggle={handleToggle}
                 />
                 );
                 })
             }
-            <TodoInput onTaskCreate={handleTaskCreate}/>
         </div>
     )
 }
