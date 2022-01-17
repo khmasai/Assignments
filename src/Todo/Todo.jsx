@@ -10,50 +10,27 @@ export default function Todo(){
         {
             id: 1,
             title: "DEFAULT",
-            status: "Incompleted",
+            description: "DETAILS",
+            status: false,
         }
     ])
     
-    const  handleTaskCreate = (title)=>{
-        const payload={
-            id: todos.length+1,
-            title: title,
-            status: "Incompleted"
-        }
-        setTodos([...todos,payload]);
-    }
+    const handleSubmit = ({ title, description }) => {
+        const payload = {
+          id: todos.length+1,
+          title,
+          description,
+          status: false
+        };
+        setTodos([...todos, payload]);
+      };
 
-    // delete
-    const handleDelete = (id)=>{
-        setTodos(todos.filter((item)=>item.id !==id));
-    }
-
-    // * toggle
-    const handleToggle=(id)=>{
-        const updatedTodos = todos.map((item)=>
-        item.id===id ? {...item, status: (item.status==="Completed")?("Incompleted"):"Completed"}: item
-        );
-        setTodos(updatedTodos);
-    }
     
     return (
         <div className={style.todo}>
-            <h1>TODO LIST</h1>
-            <TodoInput onTaskCreate={handleTaskCreate}/>
-            {
-                 todos.map((todo)=>{
-                    return (
-                <TodoList
-                key={todo.id} 
-                id={todo.id}
-                title={todo.title} 
-                status={todo.status}
-                handleDelete={handleDelete}
-                handleToggle={handleToggle}
-                />
-                );
-                })
-            }
+            <h1>TODO LIST USING FORM</h1>
+            <TodoInput onSubmit={handleSubmit} />
+            <TodoList data={todos.filter((item) => !item.status)} />
         </div>
     )
 }
