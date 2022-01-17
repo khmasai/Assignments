@@ -1,34 +1,23 @@
 
 import './App.css';
-import Join from './Components/JoinUs';
-import Setting from './Components/Settings';
-import Login from './Components/Login';
-import Contact from './Components/ContactUs';
-import Search from './Components/Search';
-import Help from './Components/Help';
-import Home from './Components/Home';
-import Download from './Components/Download';
+import HeaderList from './Components/HeaderList';
+import TextList from './Components/TextList';
+import TempList from './Components/TempList';
+import PriceList from './Components/PriceList';
 
 function App() {
   return (
+    <>
     <div className="App">
-      <div>
-        <Join/>
-        <Setting/>
-      </div>
-      <div> 
-        <Login/>
-        <Contact/>
-      </div>
-      <div>
-        <Search/>
-        <Help/>
-      </div>
-      <div>
-        <Home/>
-        <Download/>
-      </div>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNSqwCFx0cCZaSOaxHDrP2uXdzhj6MxQi9aQ&usqp=CAU" alt=""/>
+      <div className="i-tag">i</div>
+      <HeaderList/>
+      <TextList/>
+      <TempList/>
+      <PriceList/>
     </div>
+    <div className="space"></div>
+    </>
   );
 }
 
