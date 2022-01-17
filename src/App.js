@@ -1,12 +1,12 @@
 
 import './App.css';
-import Todo from './TODO/Todo';
+import Timer from './Timer/Timer';
 
 function App() {
   return (
     <div className="App">
-      <h1>TODO APP</h1>
-      <Todo/>
+      <h1>Simple Timer</h1>
+      <Timer initial={1} final={20}/>
     </div>
   );
 }
